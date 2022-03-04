@@ -26,7 +26,9 @@ We have considered to analyse on loss functions by having residual networks as o
 
 
 ## Requirements
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)<br/>
 We have used [PyTorch](https://pytorch.org/) framework, the utilized libraries from the same have been depicted below:<br/>
+
 #### Required Libraries for computing loss:
 * _torch_ <br/>
 * _numpy_
@@ -41,15 +43,22 @@ We have used [PyTorch](https://pytorch.org/) framework, the utilized libraries f
 
 
 ## Our Results
+We proved results for a cycle of 3 iterations for the following settings:<br/> 
+Optimizer - **Adam** with learning rate of 10<sup>-3</sup><br/>
+Number of epochs - 70<br/>
+Early stopping patience - 12<br/>
+
+_tables with results and plots_
 
 ## Code References
 * The custom ViT model have been cloned from [here](https://github.com/lucidrains/vit-pytorch)
-* Dataloaders with respect to Colored MNIST and Corrupted CIFAR have been cloned from [here](https://github.com/kakaoenterprise/Learning-Debiased-Disentangled). The published paper referral have been provided in the succeeding section.
-* The obtained results have been depicted via CKA (Centered kernel alignement) plots. The code for plotting this representation have cloned from [here](https://github.com/AntixK/PyTorch-Model-Compare). The published paper referral have been provided in the succeeding section.
-* 
+* Dataloaders with respect to Colored MNIST and Corrupted CIFAR have been cloned from [here](https://github.com/kakaoenterprise/Learning-Debiased-Disentangled). The published paper referral have been provided in the succeeding section.[[1]](#1)
+* The obtained results have been depicted via CKA (Centered kernel alignement) plots. The code for plotting this representation have cloned from [here](https://github.com/AntixK/PyTorch-Model-Compare). The published paper referral have been provided in the succeeding section.[[2]](#2)
+ 
 
 
 ## Paper References
-
+<a id="1">[1]</a> [Kim, Eungyeup, Jungsoo Lee, Juyoung Lee, Jihyeon Lee and Jaegul Choo. “Learning Debiased Representation via Disentangled Feature Augmentation.” ArXiv abs/2107.01372 (2021): n. pag.](https://arxiv.org/abs/2107.01372)<br/>
+<a id="2">[2]</a> [Kornblith, Simon, Mohammad Norouzi, Honglak Lee and Geoffrey E. Hinton. “Similarity of Neural Network Representations Revisited.” ArXiv abs/1905.00414 (2019): n. pag.](https://arxiv.org/abs/1905.00414)
 
 
