@@ -12,7 +12,59 @@ We have analysed the below listed loss functions on datasets provided in the nex
 6. Sum of Squares - **SoS** 
 
 
-## Code Snippet 
+## Code Snippet
+``` python
+import torch
+from torchvision import datasets, models, transforms
+from torch.utils.data import DataLoader
+import torch.optim as  optim
+import numpy as np
+import pandas as pd
+import matplotlib.pypot as plt
+from lossfunctions import LossFunctions
+
+
+# Switching from cuda to cpu, if cuda is available
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+#--------MODEL--------#
+# if training via pipelining
+model = models.resnet18(pretrained=False).to(device)
+# if the weights the are available proceed to use the following set of lines
+# model = torch.load("\PATH")
+# model.load_state_dict(torch.load("\PATH"))
+
+#------DEFINE BATCH SIZE-----#
+batch_size = 256
+
+#------DATASET-DATALOADING-----#
+traindata_transforms = transforms.Compose([
+                        transforms.Resize((64,64)),
+                        transforms.ToTensor(),
+                        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
+
+testdata_transforms = transforms.Compose([
+                        transforms.Resize((64,64)),  
+                        transforms.ToTensor(),
+                        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
+
+traindata = datasets.CIFAR10(root="\PATH", train=True, transform=traindata_transforms, download=True) 
+testdata = datasets.CIFAR10(root="\PATH", train=False, transform=traindata_transforms, download=True)
+
+train_dl = DataLoader(traindata, batch_size, shuffle=False) 
+test_dl = DataLoader(testdata, batch_size, shuffle=False)
+
+#----METRICS----#
+num_classes = 10
+lf = LossFuntions(num_classes)
+# You could define any one of the 6 defined loss functions 
+# The defined loss functions are:
+#   L1, L2, Mean-Sqaured-Error, Sum-Of-Squares, Cross-Entropy, Binary Cross-Entropy
+criterion = lf.cross_entropy
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
+
+#----TRAIN/TEST MODEL----#
+```
 
 ## Datasets Utilized
 * [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
