@@ -11,7 +11,7 @@ We have analysed the below listed loss functions on datasets provided in the nex
 6. Sum of Squares - **SoS** 
 
 ## Datasets Utilized
-* [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
+######* [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
 * [MNIST Dataset](https://pytorch.org/vision/stable/datasets.html#mnist)
 * [ImageNet-200 Dataset]()
 * [Corrupted CIFAR-10 Dataset](https://drive.google.com/drive/folders/1JEOqxrhU_IhkdcRohdbuEtFETUxfNmNT)
@@ -22,7 +22,7 @@ We have analysed the below listed loss functions on datasets provided in the nex
 > **NOTE** - The link corresponding to the dataset name would redirect you to the respective dataset retrieval.
 
 ## Models Utilized
-We have considered to analyse on loss functions by having residual networks as our model encoder and the cross dataset generalization by both residual networks and visual transformers. We have considered the 18 layered version of ResNet i.e., [ResNet18](https://arxiv.org/abs/1512.03385)  and [ViT](https://arxiv.org/abs/2010.11929)-custom model.
+We have considered to analyse on loss functions and also performed the task of cross-dataset genealization by utilizing residual neural networks as our model encoder. We have considered the 18 layered version of ResNet i.e., [ResNet18](https://arxiv.org/abs/1512.03385)  
 
 
 > **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
