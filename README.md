@@ -1,6 +1,7 @@
 # Representation-Analysis-of-Neural-Networks-on-Biased-and-OOD-data.
 ## Motive
 
+
 ## Interpretation of Loss Functions
 We have analysed the below listed loss functions on datasets provided in the next section. We have trained and tested on the those datasets with the following datasets:<br/>
 1. Softmax Cross Entropy - **SCE**
@@ -10,8 +11,11 @@ We have analysed the below listed loss functions on datasets provided in the nex
 5. Binary Cross Entropy - **BCE**
 6. Sum of Squares - **SoS** 
 
+
+## Code Snippet 
+
 ## Datasets Utilized
-######* [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
+* [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
 * [MNIST Dataset](https://pytorch.org/vision/stable/datasets.html#mnist)
 * [ImageNet-200 Dataset]()
 * [Corrupted CIFAR-10 Dataset](https://drive.google.com/drive/folders/1JEOqxrhU_IhkdcRohdbuEtFETUxfNmNT)
