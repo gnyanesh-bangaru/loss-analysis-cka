@@ -29,17 +29,7 @@ We have considered to analyse on loss functions by having residual networks as o
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&url=<https://www.python.org/>&logo=python&logoColor=ffdd54)![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)<br/>
 We have used [PyTorch](https://pytorch.org/) framework, the utilized libraries from the same have been depicted below:<br/>
 
-#### Required Libraries for computing loss:
-* _torch_ <br/>
-* _numpy_
-
-#### Libraries utilized for our overall work:
-* _torch_ version == 1.9.0 <br/>
-* _torchvision_ version == 0.10.0<br/>
-* _numpy_ version == 1.18.5<br/>
-* _pandas_ version == 1.1.3<br/>
-* _matplotlib_ version == 3.3.2<br/>
-* _sklearn_ version == 0.23.2
+> **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
 
 
 ## Our Results
