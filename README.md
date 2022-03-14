@@ -25,10 +25,6 @@ We have analysed the below listed loss functions on datasets provided in the nex
 We have considered to analyse on loss functions by having residual networks as our model encoder and the cross dataset generalization by both residual networks and visual transformers. We have considered the 18 layered version of ResNet i.e., [ResNet18](https://arxiv.org/abs/1512.03385)  and [ViT](https://arxiv.org/abs/2010.11929)-custom model.
 
 
-## Requirements
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&url=<https://www.python.org/>&logo=python&logoColor=ffdd54)![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)<br/>
-We have used [PyTorch](https://pytorch.org/) framework, the utilized libraries from the same have been depicted below:<br/>
-
 > **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
 
 
