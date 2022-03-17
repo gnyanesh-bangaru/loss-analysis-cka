@@ -1,9 +1,10 @@
 # Representation-Analysis-of-Neural-Networks-on-Biased-and-OOD-data.
-## Motive
 
+We analyse how various objective functions perform on standard image classification data, biased data and data with distributional shifts. 
+_Keywords :  Representation analysis, Centered Kernel Alignment, Out-of-Distribution Generalisation, Objective functions, Biased Data, Deep Learning_
 
 ## Interpretation of Loss Functions
-We have analysed the below listed loss functions on datasets provided in the next section. We have trained and tested on the those datasets with the following datasets:<br/>
+We have analysed the below listed loss/ objective functions on datasets provided in the next section:<br/>
 1. Softmax Cross Entropy - **SCE**
 2. Except Loss - **L<sub>1</sub> Loss**
 3. Mean Squared Error - **L<sub>2</sub> Loss**
