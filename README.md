@@ -60,7 +60,7 @@ lf = LossFuntions(num_classes)
 # You could define any one of the 6 defined loss functions 
 # The defined loss functions are:
 #   L1 = expectation_loss, L2 = mse_loss, Sum-Of-Squares = sos_loss, 
-#   Cross-Entropy = , Binary Cross-Entropy = , Negative Log-Likelihood = neg_loglike_loss 
+#   Cross-Entropy = cross_entropy_loss, Binary Cross-Entropy = bce_loss, Negative Log-Likelihood = neg_loglike_loss 
 criterion = lf.cross_entropy
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
