@@ -90,7 +90,7 @@ Optimizer - **Adam** with learning rate of 10<sup>-3</sup><br/>
 Number of epochs - 70<br/>
 Early stopping patience - 12<br/>
 
-_tables with results and plots_
+_tables with results and plots - yet to be added_
 
 ## Code References
 * Dataloaders with respect to Colored MNIST and Corrupted CIFAR have been cloned from [here](https://github.com/kakaoenterprise/Learning-Debiased-Disentangled). The published paper referral have been provided in the succeeding section.[[1]](#1)
