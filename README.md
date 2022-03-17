@@ -1,6 +1,6 @@
 # Representation-Analysis-of-Neural-Networks-on-Biased-and-OOD-data.
 
-_The github repository is yet to be updated. The required changes will be made soon_
+**_The github repository is yet to be updated. The required changes will be made soon_**
 
 We analyse how various objective functions perform on standard image classification data, biased data and data with distributional shifts.
 
