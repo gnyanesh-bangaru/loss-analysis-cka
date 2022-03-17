@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.backends import cudnn
-from scipy.spatial import distance
+
 
 cudnn.benchmark = True
 import os
