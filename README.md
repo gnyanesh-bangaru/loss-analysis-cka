@@ -67,7 +67,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.0001)
 ```
 
 > **NOTE** - The detailed code for the above code illustration has been provided in the .ipynb file --tutorials.ipynb.
-
+_tutorial.ipynb - yet to be added_
 ## Datasets Utilized
 * [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
 * [MNIST Dataset](https://pytorch.org/vision/stable/datasets.html#mnist)
