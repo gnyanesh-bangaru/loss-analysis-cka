@@ -6,13 +6,12 @@ We analyse how various objective functions perform on standard image classificat
 
 ## Interpretation of Loss Functions
 We have analysed the below listed loss/ objective functions on datasets provided in the next section:<br/>
-1. Softmax Cross Entropy - **SCE**
-2. Except Loss - **L<sub>1</sub> Loss**
-3. Mean Squared Error - **L<sub>2</sub> Loss**
-4. Negative Log Likelihood Loss - **NLL**
-5. Binary Cross Entropy - **BCE**
-6. Sum of Squares - **SoS** 
-
+1. Softmax Cross Entropy - **SCE** - cross_entropy_loss
+2. Except Loss - **L<sub>1</sub> Loss** - expectation_loss
+3. Mean Squared Error - **L<sub>2</sub> Loss** - mse_loss
+4. Negative Log Likelihood Loss - **NLL** - neg_loglike_loss
+5. Binary Cross Entropy - **BCE** - bce_loss
+6. Sum of Squares - **SoS** - sos_loss
 
 ## Code Snippet
 ``` python
