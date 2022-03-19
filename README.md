@@ -17,6 +17,9 @@ We have analysed the below listed loss/ objective functions on datasets provided
 
 > **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
 > 
+> The detailed code for the below code illustration has been provided in the .ipynb file --**tutorials.ipynb**.
+
+> Alse, the module with repect to Loss Functions have been provided as **lossfuntions.py** along with **train.py**.
 ### Code Snippet
 ``` python
 import torch
@@ -71,7 +74,6 @@ optimizer = optim.Adam(model.parameters(), lr=0.0001)
 #----TRAIN/TEST MODEL----#
 ```
 
-> **NOTE** - The detailed code for the above code illustration has been provided in the .ipynb file --tutorials.ipynb.
 
 
 ## Datasets Utilized
