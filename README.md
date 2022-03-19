@@ -67,22 +67,6 @@ optimizer = optim.Adam(model.parameters(), lr=0.0001)
 #----TRAIN/TEST MODEL----#
 ```
 
-
-
-## Datasets Utilized
-* [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
-* [MNIST Dataset](https://pytorch.org/vision/stable/datasets.html#mnist)
-* [ImageNet-200 Dataset]()
-* [Corrupted CIFAR-10 Dataset](https://drive.google.com/drive/folders/1JEOqxrhU_IhkdcRohdbuEtFETUxfNmNT)
-* [Colored MNIST Dataset](https://drive.google.com/drive/folders/1JEOqxrhU_IhkdcRohdbuEtFETUxfNmNT)
-* [Modified MNIST](https://www.kaggle.com/balraj98/adversarial-discriminative-domain-adaptation/notebook)
-* [ImageNet-R (Renditions) Dataset](https://github.com/hendrycks/imagenet-r).
-
-> **NOTE** - The link corresponding to the dataset name would redirect you to the respective dataset retrieval.
-
-## Models Utilized
-We have considered to analyse on loss functions and also performed the task of cross-dataset genealization by utilizing residual neural networks as our model encoder. We have considered the 18 layered version of ResNet i.e., [ResNet18](https://arxiv.org/abs/1512.03385)  
-
 ## Code References
 * Dataloaders with respect to Colored MNIST and Corrupted CIFAR have been cloned from [here](https://github.com/kakaoenterprise/Learning-Debiased-Disentangled). The published paper referral have been provided in the succeeding section.[[1]](#1)
 * The obtained results have been depicted via CKA (Centered kernel alignement) plots. The code for plotting this representation have cloned from [here](https://github.com/AntixK/PyTorch-Model-Compare). The published paper referral have been provided in the succeeding section.[[2]](#2)
