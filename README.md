@@ -4,7 +4,7 @@
 
 We analyse how various objective functions perform on standard image classification data, biased data and data with distributional shifts.
 
-## Interpretation of Loss Functions
+### Interpretation of Loss Functions
 We have analysed the below listed loss/ objective functions on datasets provided in the next section:<br/>
 1. Softmax Cross Entropy - **SCE** - cross_entropy_loss
 2. Except Loss - **L<sub>1</sub> Loss** - expectation_loss
@@ -13,7 +13,11 @@ We have analysed the below listed loss/ objective functions on datasets provided
 5. Binary Cross Entropy - **BCE** - bce_loss
 6. Sum of Squares - **SoS** - sos_loss
 
-## Code Snippet
+## Getting Started
+
+> **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
+> 
+### Code Snippet
 ``` python
 import torch
 from torchvision import datasets, models, transforms
@@ -68,7 +72,8 @@ optimizer = optim.Adam(model.parameters(), lr=0.0001)
 ```
 
 > **NOTE** - The detailed code for the above code illustration has been provided in the .ipynb file --tutorials.ipynb.
-_tutorial.ipynb - yet to be added_
+
+
 ## Datasets Utilized
 * [CIFAR-10 Dataset](https://pytorch.org/vision/stable/datasets.html#cifar)
 * [MNIST Dataset](https://pytorch.org/vision/stable/datasets.html#mnist)
@@ -82,16 +87,6 @@ _tutorial.ipynb - yet to be added_
 
 ## Models Utilized
 We have considered to analyse on loss functions and also performed the task of cross-dataset genealization by utilizing residual neural networks as our model encoder. We have considered the 18 layered version of ResNet i.e., [ResNet18](https://arxiv.org/abs/1512.03385)  
-
-
-> **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
-## Our Results
-We proved results for a cycle of 3 iterations for the following settings:<br/> 
-Optimizer - **Adam** with learning rate of 10<sup>-3</sup><br/>
-Number of epochs - 70<br/>
-Early stopping patience - 12<br/>
-
-_tables with results and plots - yet to be added_
 
 ## Code References
 * Dataloaders with respect to Colored MNIST and Corrupted CIFAR have been cloned from [here](https://github.com/kakaoenterprise/Learning-Debiased-Disentangled). The published paper referral have been provided in the succeeding section.[[1]](#1)
