@@ -66,6 +66,14 @@ optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
 #----TRAIN/TEST MODEL----#
 ```
+### Models and Datasets utilized
+We have utilized **ResNet18** and **ResNet50** as our model encoders, and these were trained on the following data.
+| Generic Data | Biased Data | Out-Of-Distribution Data |
+| --------------- | --------------- | --------------- |
+| CIFAR-10  | Corrupted CIFAR-10  |--------------------------|
+| MNIST Dataset | Colored MNIST  | Modified MNIST |
+| ImageNet-200  |--------------------------| ImageNet-R (Renditions) |
+
 
 ## Code References
 * Dataloaders with respect to Colored MNIST and Corrupted CIFAR have been cloned from [here](https://github.com/kakaoenterprise/Learning-Debiased-Disentangled). The published paper referral have been provided in the succeeding section.[[1]](#1)
