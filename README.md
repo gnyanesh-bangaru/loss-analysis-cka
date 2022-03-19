@@ -4,21 +4,12 @@
 
 We analyse how various objective functions perform on standard image classification data, biased data and data with distributional shifts.
 
-### Interpretation of Loss Functions
-We have analysed the below listed loss/ objective functions on datasets provided in the next section:<br/>
-1. Softmax Cross Entropy - **SCE** - cross_entropy_loss
-2. Except Loss - **L<sub>1</sub> Loss** - expectation_loss
-3. Mean Squared Error - **L<sub>2</sub> Loss** - mse_loss
-4. Negative Log Likelihood Loss - **NLL** - neg_loglike_loss
-5. Binary Cross Entropy - **BCE** - bce_loss
-6. Sum of Squares - **SoS** - sos_loss
-
 ## Getting Started
 
 > **NOTE** - All the required libraries have been depicted in the **requirements.txt** file.
 > 
 > The detailed code for the below code illustration has been provided in the .ipynb file --**tutorials.ipynb**.
-
+> 
 > Alse, the module with repect to Loss Functions have been provided as **lossfuntions.py** along with **train.py**.
 ### Code Snippet
 ``` python
@@ -65,9 +56,11 @@ test_dl = DataLoader(testdata, batch_size, shuffle=False)
 num_classes = 10
 lf = LossFuntions(num_classes)
 # You could define any one of the 6 defined loss functions 
+
 # The defined loss functions are:
 #   L1 = expectation_loss, L2 = mse_loss, Sum-Of-Squares = sos_loss, 
 #   Cross-Entropy = cross_entropy_loss, Binary Cross-Entropy = bce_loss, Negative Log-Likelihood = neg_loglike_loss 
+
 criterion = lf.cross_entropy
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
