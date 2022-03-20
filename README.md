@@ -15,7 +15,7 @@ This repo is implementation of our [work](https://openreview.net/forum?id=BBSg-W
 
 ## Reproducibility 
 
-To reproduce our work, please refer the [mega link](https://mega.nz/fm/sVpxDIjC) to download the trained weights for the network trained on various datasets and objective functions. 
+To reproduce our work, please refer the [mega link](https://mega.nz/folder/B4FS0RDY#t6F8taiQ1QZ6Uxiodf-R4A) to download the trained weights for the network trained on various datasets and objective functions. 
 
 
 ### Code Snippet
