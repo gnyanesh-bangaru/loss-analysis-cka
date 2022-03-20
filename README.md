@@ -13,6 +13,10 @@ This repo is implementation of our [work](https://openreview.net/forum?id=BBSg-W
 > The six variant loss functions are provided in **lossfuntions.py** and training procedure is in **train.py**.
 
 
+## Reproducibility 
+
+To reproduce our work, please refer the [mega link](https://mega.nz/fm/sVpxDIjC) to download the trained weights for the network trained on various datasets and objective functions. 
+
 
 ### Code Snippet
 ``` python
