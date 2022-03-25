@@ -9,7 +9,7 @@ from torch.utils.data import Subset
 from torchvision.transforms import Compose, ToTensor, Resize, RandomHorizontalFlip, Normalize
 from torchvision import datasets
 from torch.utils.data import DataLoader
-from torch.backends import cudnn'
+from torch.backends import cudnn
 from torchvision.datasets import ImageFolder
 
 from glob import glob
@@ -21,9 +21,6 @@ import cv2
 from sklearn.model_selection import train_test_split
 
 CUDA_LAUNCH_BLOCKING=1
-
-from torch.backends import cudnn
-
 cudnn.benchmark = True
 
 class LoadData:
