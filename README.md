@@ -39,9 +39,14 @@ model = models.resnet18(pretrained=False).to(device)
 # if the weights the are available proceed to use the following set of lines
 # model = torch.load("\PATH")
 # model.load_state_dict(torch.load("\PATH"))
+
 #----------------------DATASET-----------------------#
 directory = r'\PATH'
 dl = LoadData(directory)
+
+# Pass the dataset name
+dataset = '\cifar10' 
+
 #--------------------SET BATCH SIZE------------------#
 batch_size = 256
 
