@@ -1,33 +1,25 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb  7 18:30:32 2022
-
-@author: cgnya
-"""
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 import torch
 from torchvision.datasets import CIFAR10, MNIST
+import torch.utils.data as data
 from torch.utils.data.dataset import Dataset
+from torch.utils.data import Subset
 from torchvision.transforms import Compose, ToTensor, Resize, RandomHorizontalFlip, Normalize
 from torchvision import datasets
 from torch.utils.data import DataLoader
+from torch.backends import cudnn'
+from torchvision.datasets import ImageFolder
+
 from glob import glob
 from PIL import Image
+import errno
 import numpy as np
 from pathlib import Path
 import cv2
-from torchvision.datasets import ImageFolder
-from torch.utils.data import Subset
 from sklearn.model_selection import train_test_split
 
-import errno
-import os
-
-import torch
-import torch.utils.data as data
-from PIL import Image
 CUDA_LAUNCH_BLOCKING=1
 
 from torch.backends import cudnn
@@ -247,7 +239,6 @@ class LoadData:
                     # check if dataset already exists
                     if self._check_exists():
                         return
-            
                     # make data dirs
                     try:
                         os.makedirs(os.path.join(self.root, self.raw_folder))
@@ -257,7 +248,6 @@ class LoadData:
                             pass
                         else:
                             raise
-            
                     # download pkl files
                     print("Downloading " + self.url)
                     filename = self.url.rpartition("/")[2]
@@ -269,20 +259,16 @@ class LoadData:
                         with open(file_path.replace(".gz", ""), "wb") as out_f, gzip.GzipFile(file_path) as zip_f:
                             out_f.write(zip_f.read())
                         os.unlink(file_path)
-            
                     # process and save as torch files
                     print("Processing...")
-            
                     # load MNIST-M images from pkl file
                     with open(file_path.replace(".gz", ""), "rb") as f:
                         mnist_m_data = pickle.load(f, encoding="bytes")
                     mnist_m_train_data = torch.ByteTensor(mnist_m_data[b"train"])
                     mnist_m_test_data = torch.ByteTensor(mnist_m_data[b"test"])
-            
                     # get MNIST labels
                     mnist_train_labels = datasets.MNIST(root=self.mnist_root, train=True, download=True).train_labels
                     mnist_test_labels = datasets.MNIST(root=self.mnist_root, train=False, download=True).test_labels
-            
                     # save MNIST-M dataset
                     training_set = (mnist_m_train_data, mnist_train_labels)
                     test_set = (mnist_m_test_data, mnist_test_labels)
@@ -290,7 +276,6 @@ class LoadData:
                         torch.save(training_set, f)
                     with open(os.path.join(self.root, self.processed_folder, self.test_file), "wb") as f:
                         torch.save(test_set, f)
-            
                     print("Done!")
             
             traindata_transforms = Compose([
