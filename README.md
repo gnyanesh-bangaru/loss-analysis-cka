@@ -20,7 +20,7 @@ To reproduce our work, please refer the [mega link](https://mega.nz/folder/B4FS0
 
 ### Code Snippet
 ``` python
-#----------------Required Libraries-----------------#
+#----------------REQUIRED LIBRARIES-----------------#
 import torch
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
