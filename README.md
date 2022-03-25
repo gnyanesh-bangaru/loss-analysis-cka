@@ -29,8 +29,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pypot as plt
 from lossfunctions import LossFunctions
+from dataloader import LoadData
 
-mdevice = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
 #------------------------MODEL-----------------------#
 # if training via pipelining
@@ -38,31 +39,18 @@ model = models.resnet18(pretrained=False).to(device)
 # if the weights the are available proceed to use the following set of lines
 # model = torch.load("\PATH")
 # model.load_state_dict(torch.load("\PATH"))
-
+#----------------------DATASET-----------------------#
+directory = r'\PATH'
+dl = LoadData(directory)
 #--------------------SET BATCH SIZE------------------#
 batch_size = 256
 
 #---------------------DATALOADING--------------------#
-traindata_transforms = transforms.Compose([
-                        transforms.Resize((64,64)),
-                        transforms.ToTensor(),
-                        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
+train_dataloader, test_dataloader, num_classes = dl.dataloader(dataset, batch_size)
 
-testdata_transforms = transforms.Compose([
-                        transforms.Resize((64,64)),  
-                        transforms.ToTensor(),
-                        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
-
-traindata = datasets.CIFAR10(root="\PATH", train=True, transform=traindata_transforms, download=True) 
-testdata = datasets.CIFAR10(root="\PATH", train=False, transform=traindata_transforms, download=True)
-
-train_dl = DataLoader(traindata, batch_size, shuffle=False) 
-test_dl = DataLoader(testdata, batch_size, shuffle=False)
-
-#----------------------METRICS----------------------#
-num_classes = 10
+#----------------------METRICS-----------------------#
 lf = LossFuntions(num_classes)
-# You could define any one of the 6 defined loss functions 
+# You could define any one of the 6 defined loss functions
 
 # The defined loss functions are:
 #   L1 = expectation_loss, L2 = mse_loss, Sum-Of-Squares = sos_loss, 
@@ -71,8 +59,7 @@ lf = LossFuntions(num_classes)
 criterion = lf.cross_entropy
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
-#--------------TRAINING AND EVALUATION-------------#
-
+#--------------TRAINING AND EVALUATION---------------#
 model.train()
 model.eval()
 ```
