@@ -65,6 +65,7 @@ criterion = lf.cross_entropy
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
 #--------------TRAINING AND EVALUATION---------------#
+# The code regarding training have been provided as train.py and the utilization of the same have been provided in tutorial.ipynb
 model.train()
 model.eval()
 ```
