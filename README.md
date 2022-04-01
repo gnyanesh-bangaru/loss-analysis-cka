@@ -54,7 +54,7 @@ batch_size = 256
 train_dataloader, test_dataloader, num_classes = dl.dataloader(dataset, batch_size)
 
 #----------------------METRICS-----------------------#
-lf = LossFuntions(num_classes)
+lf = LossFunctions(num_classes)
 # You could define any one of the 6 defined loss functions
 
 # The defined loss functions are:
