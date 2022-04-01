@@ -6,7 +6,7 @@ from torchvision.datasets import CIFAR10, MNIST
 import torch.utils.data as data
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import Subset
-from torchvision.transforms import Compose, ToTensor, Resize, RandomHorizontalFlip, Normalize
+from torchvision.transforms import Compose, ToTensor, Resize, Normalize
 from torchvision import datasets
 from torch.utils.data import DataLoader
 from torch.backends import cudnn
@@ -33,7 +33,7 @@ class LoadData:
                    dataset:str,
                    batch_size:int):
         
-        global transforms, datasets, DataLoader, Compose, ToTensor, Resize, RandomHorizontalFlip, Normalize
+        global transforms, datasets, DataLoader, Compose, ToTensor, Resize, Normalize
         self.dataset = dataset
         self.batch_size = batch_size
         
@@ -73,13 +73,11 @@ class LoadData:
             traindata_transforms = Compose([
                         Resize((64, 64)),
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             testdata_transforms = Compose([
                         Resize((64, 64)),  
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             train_dataset = CIFAR10(download=True, 
@@ -102,13 +100,11 @@ class LoadData:
             traindata_transforms = Compose([
                         Resize((64, 64)),
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize(0.5, 0.5)
                         ])
             testdata_transforms = Compose([
                         Resize((64, 64)),  
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize(0.5, 0.5)
                         ])
             train_dataset = MNIST(download=True, 
@@ -131,13 +127,11 @@ class LoadData:
             traindata_transforms = Compose([
                         Resize((64, 64)),
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             testdata_transforms = Compose([
                         Resize((64, 64)),  
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             train_data = r'E:\Analysis_Work\CODE\data\tiny-imagenet-200\train'
@@ -278,13 +272,11 @@ class LoadData:
             traindata_transforms = Compose([
                         Resize((64, 64)),
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             testdata_transforms = Compose([
                         Resize((64, 64)),  
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             train_dataset = MNISTM(root = './data',
@@ -309,13 +301,11 @@ class LoadData:
             traindata_transforms = Compose([
                         Resize((64, 64)),
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             testdata_transforms = Compose([
                         Resize((64, 64)),  
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             
@@ -327,7 +317,6 @@ class LoadData:
                 return datasets
             dataset = ImageFolder(r'E:\Analysis_Work\data\ImageNet Renditions\imagenet-r', transform=Compose([Resize((64,64)),
                                                                                           ToTensor(),
-                                                                                          RandomHorizontalFlip(),
                                                                                           Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]))
             datasets = train_val_dataset(dataset)
             train_dataset =datasets['train']
@@ -344,18 +333,15 @@ class LoadData:
             traindata_transforms = Compose([
                         Resize((64, 64)),
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             testdata_transforms = Compose([
                         Resize((64, 64)),  
                         ToTensor(),
-                        RandomHorizontalFlip(),
                         Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ])
             dataset = ImageFolder(r'E:\Analysis_Work\data\ImageNet Renditions\imagenet-r', transform=Compose([Resize((64,64)),
                                                                                           ToTensor(),
-                                                                                          RandomHorizontalFlip(),
                                                                                           Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]))
             
             dl = DataLoader(dataset, self.batch_size, shuffle=True) 
@@ -444,13 +430,11 @@ class LoadData:
                             T.Resize((32, 32)),
                             T.ToTensor(),
                             T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-                            T.RandomHorizontalFlip(),
                         ]
                     ),
                     "test": T.Compose(
                         [
                             T.Resize((32, 32)),
-                            T.RandomHorizontalFlip(),
                             T.ToTensor(),
                             T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ]
@@ -593,13 +577,11 @@ class LoadData:
                             T.Resize((64, 64)),
                             T.ToTensor(),
                             T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-                            T.RandomHorizontalFlip(),
                         ]
                     ),
                     "test": T.Compose(
                         [
                             T.Resize((64, 64)),
-                            T.RandomHorizontalFlip(),
                             T.ToTensor(),
                             T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
                         ]
