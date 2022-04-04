@@ -1,7 +1,5 @@
 # Representation-Analysis-of-Neural-Networks-on-Biased-and-OOD-data.
 
-**_The github repository is yet to be updated. The required changes will be made soon_**
-
 This repo is implementation of our [work](https://openreview.net/forum?id=BBSg-Wbsxfq).
 
 ## Getting Started
