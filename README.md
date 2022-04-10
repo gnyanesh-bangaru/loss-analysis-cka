@@ -1,6 +1,6 @@
 # Representation-Analysis-of-Neural-Networks-on-Biased-and-OOD-data.
 
-This repo is implementation of our [work](https://openreview.net/forum?id=BBSg-Wbsxfq).
+This repo is implementation of our [work](https://openreview.net/forum?id=BBSg-Wbsxfq). The work is yet to be updated.
 
 ## Getting Started
 
@@ -68,7 +68,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.0001)
 epochs = 15
 modelname = 'resnet18'
 
-# Training 
+# Train and Test
 t = Train(optimizer = optimizer,
           loss = criterion,
           epochs = epochs,
