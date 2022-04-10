@@ -28,6 +28,7 @@ import pandas as pd
 import matplotlib.pypot as plt
 from lossfunctions import LossFunctions
 from dataloader import LoadData
+from train import Train
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -59,13 +60,29 @@ lf = LossFunctions(num_classes)
 #   L1 = expectation_loss, L2 = mse_loss, Sum-Of-Squares = sos_loss, 
 #   Cross-Entropy = cross_entropy_loss, Binary Cross-Entropy = bce_loss, Negative Log-Likelihood = neg_loglike_loss 
 
+# Declaring Loss Function and Optimizer
 criterion = lf.cross_entropy
 optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
 #--------------TRAINING AND EVALUATION---------------#
-# The code regarding training have been provided as train.py and the utilization of the same have been provided in tutorial.ipynb
-model.train()
-model.eval()
+epochs = 15
+modelname = 'resnet18'
+
+# Training 
+t = Train(optimizer = optimizer,
+          loss = criterion,
+          epochs = epochs,
+          modelname = modelname,
+          dataset = dataset,
+          )
+filename = dataset[1:] + modelname
+history = t.train(
+            train_dl = train_dataloader,
+            test_dl = test_dataloader,
+            num_classes = num_classes,
+            filename = filename,
+            dataset = dataset
+            )
 ```
 ### Models and Datasets utilized
 We have utilized **ResNet18** and **ResNet50** as our model encoders, and these were trained on the following data.
