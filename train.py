@@ -1,11 +1,24 @@
-import torch
-from torchvision import models, datasets, transforms
-import torch.nn as nn
-from tqdm import tqdm
-import time
+#--------Generic_Libraries---------#
 import numpy as np
-device = "cuda" if torch.cuda.is_available() else "cpu"
+import time
+from tqdm import tqdm
+
+
+#---------Torch_Libraries----------#
+import torch
+from torchvision import models
+import torch.nn as nn
+
+
+#------User-Defined_Libraries------#
+from CUDA_data_switch import get_default_device
+
+
+device = get_default_device()
+
+
 class Train:
+    
     def __init__(self,
                  optimizer,
                  loss,
@@ -20,7 +33,10 @@ class Train:
         self.epochs = epochs
         self.modelname = modelname
     
-    def model_(self, modelname:str, num_classes:int, dataset:str):
+    def model_(self, 
+               modelname:str, 
+               num_classes:int, 
+               dataset:str):
         if modelname == 'resnet50':
             model = models.resnet50(pretrained=True).to(device)
             model.fc = nn.Sequential(
@@ -47,7 +63,8 @@ class Train:
         _, preds = torch.max(outputs, dim=1)
         acc = torch.tensor(torch.sum(preds == labels).item() / len(preds))
         return acc
-    
+
+    # Testing Loop    
     @torch.no_grad()
     def test(self, model, test_dl, dataset):
         model.eval()
@@ -69,9 +86,11 @@ class Train:
                             dataset = dataset)
         if self.optimizer_name == 'SGD':
             optimizer = self.optimizer(model.parameters(), lr=0.0001, momentum=0.93)
-        else:
+        elif self.optimizer_name == 'Adam':
             optimizer = self.optimizer(model.parameters(), lr=0.001)
-        
+        else:
+            print('optim_error-the_provided_optimizer_is_invalid')
+            
         for epoch in range(self.epochs):
             model.train()
             train_loss = []
