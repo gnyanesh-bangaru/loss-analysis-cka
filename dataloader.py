@@ -1,6 +1,19 @@
+#--------Generic_Libraries---------#
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+from glob import glob
+from PIL import Image
+import errno
+import numpy as np
+from pathlib import Path
+import cv2
+from sklearn.model_selection import train_test_split
+from six.moves import urllib
+import gzip
+import pickle
 
+
+#---------Torch_Libraries----------#
 import torch
 from torchvision.datasets import CIFAR10, MNIST
 import torch.utils.data as data
@@ -12,22 +25,32 @@ from torch.utils.data import DataLoader
 from torch.backends import cudnn
 from torchvision.datasets import ImageFolder
 
-from glob import glob
-from PIL import Image
-import errno
-import numpy as np
-from pathlib import Path
-import cv2
-from sklearn.model_selection import train_test_split
+
+#------User-Defined_Libraries------#
+from CUDA_data_switch import get_default_device, DeviceDataLoader
+
 
 CUDA_LAUNCH_BLOCKING=1
 cudnn.benchmark = True
 
+
 class LoadData:
+    """
+    Dataset naming convention:
+        - MNIST = \mnist
+        - Colored = \cmnist
+        - MNIST-M = \mnist-m
+        - CIFAR10 = \cifar10
+        - Corrupted CIFAR = \cifar10c
+        - Tiny ImageNet 200 = \Tiny-imagenet-200
+        - ImageNet-R = \imagnet-r
+    """
+    
     def __init__(self,
                 data_dir:str):
         super(LoadData, self).__init__()
         self.data_dir = data_dir
+    
     
     def dataloader(self, 
                    dataset:str,
@@ -37,49 +60,34 @@ class LoadData:
         self.dataset = dataset
         self.batch_size = batch_size
         
-        def get_default_device():
-            """Pick GPU if available, else CPU"""
-            if torch.cuda.is_available():
-                return torch.device('cuda:0')
-            else:   
-                return torch.device('cuda:0')
+        # Transforms utilized for CIFAR10, Corrupted CIFAR, Colored MNIST, Tiny Imagenet-200 and Imagenet-R
+        traindata_transforms = Compose([
+                        Resize((64, 64)),
+                        ToTensor(),
+                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+                        ])
+        testdata_transforms = Compose([
+                        Resize((64, 64)),  
+                        ToTensor(),
+                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+                        ])
         
-        def to_device(data, device):
-            """Move tensor(s) to chosen device"""
-            if isinstance(data, (list,tuple)):
-                return [to_device(x, device) for x in data]
-            return data.to(device, non_blocking=True)
-        
-        class DeviceDataLoader():
-            """Wrap a dataloader to move data to a device"""
-            def __init__(self, dl, device):
-                self.dl = dl
-                self.device = device
-                
-            def __iter__(self):
-                """Yield a batch of data after moving it to device"""
-                for b in self.dl: 
-                    yield to_device(b, self.device)
-        
-            def __len__(self):
-                """Number of batches"""
-                return len(self.dl)
-        
+        # Transforms utilized for MNIST dataset
+        mnist_traindata_transforms = Compose([
+                        Resize((64, 64)),
+                        ToTensor(),
+                        Normalize(0.5, 0.5)
+                        ])
+        mnist_testdata_transforms = Compose([
+                        Resize((64, 64)),  
+                        ToTensor(),
+                        Normalize(0.5, 0.5)
+                        ])
         device = get_default_device()
         print(device)
         
         if self.dataset=='\cifar10':
             num_classes = 10
-            traindata_transforms = Compose([
-                        Resize((64, 64)),
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            testdata_transforms = Compose([
-                        Resize((64, 64)),  
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
             train_dataset = CIFAR10(download=True, 
                                     root = '.\data', 
                                     transform = traindata_transforms, 
@@ -97,23 +105,13 @@ class LoadData:
         
         elif self.dataset == '\mnist':
             num_classes = 10
-            traindata_transforms = Compose([
-                        Resize((64, 64)),
-                        ToTensor(),
-                        Normalize(0.5, 0.5)
-                        ])
-            testdata_transforms = Compose([
-                        Resize((64, 64)),  
-                        ToTensor(),
-                        Normalize(0.5, 0.5)
-                        ])
             train_dataset = MNIST(download=True, 
                                     root = './data', 
-                                    transform = traindata_transforms, 
+                                    transform = mnist_traindata_transforms, 
                                     train = True)
             test_dataset = MNIST(download=True, 
                                     root = './data', 
-                                    transform = testdata_transforms, 
+                                    transform = mnist_testdata_transforms, 
                                     train = False)
             train_dl = DataLoader(train_dataset, self.batch_size, shuffle=True) 
             test_dl = DataLoader(test_dataset, self.batch_size, shuffle=True) 
@@ -124,16 +122,6 @@ class LoadData:
         
         elif self.dataset == '\Tiny-imagenet-200':
             num_classes = 200
-            traindata_transforms = Compose([
-                        Resize((64, 64)),
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            testdata_transforms = Compose([
-                        Resize((64, 64)),  
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
             train_data = r'E:\Analysis_Work\CODE\data\tiny-imagenet-200\train'
             test_data = r'E:\Tiny-ImageNet\tiny-imagenet-200\val\images'
             train_dataset = datasets.ImageFolder(os.path.join(train_data), traindata_transforms)
@@ -221,12 +209,6 @@ class LoadData:
             
                 def download(self):
                     """Download the MNIST data."""
-                    # import essential packages
-                    from six.moves import urllib
-                    import gzip
-                    import pickle
-                    from torchvision import datasets
-            
                     # check if dataset already exists
                     if self._check_exists():
                         return
@@ -244,9 +226,9 @@ class LoadData:
                     filename = self.url.rpartition("/")[2]
                     file_path = os.path.join(self.root, self.raw_folder, filename)
                     if not os.path.exists(file_path.replace(".gz", "")):
-                        data = urllib.request.urlopen(self.url)
+                        data_ = urllib.request.urlopen(self.url)
                         with open(file_path, "wb") as f:
-                            f.write(data.read())
+                            f.write(data_.read())
                         with open(file_path.replace(".gz", ""), "wb") as out_f, gzip.GzipFile(file_path) as zip_f:
                             out_f.write(zip_f.read())
                         os.unlink(file_path)
@@ -269,16 +251,6 @@ class LoadData:
                         torch.save(test_set, f)
                     print("Done!")
             
-            traindata_transforms = Compose([
-                        Resize((64, 64)),
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            testdata_transforms = Compose([
-                        Resize((64, 64)),  
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
             train_dataset = MNISTM(root = './data',
                                     mnist_root = './data',
                                     download=True,
@@ -297,27 +269,14 @@ class LoadData:
         
         
         elif self.dataset == '\imagenet-r':
-            num_classes = 200
-            traindata_transforms = Compose([
-                        Resize((64, 64)),
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            testdata_transforms = Compose([
-                        Resize((64, 64)),  
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            
+            num_classes = 200       
             def train_val_dataset(dataset, val_split=0.20):
                 train_idx, val_idx = train_test_split(list(range(len(dataset))), test_size=val_split)
                 datasets = {}
                 datasets['train'] = Subset(dataset, train_idx)
                 datasets['test'] = Subset(dataset, val_idx)
                 return datasets
-            dataset = ImageFolder(r'E:\Analysis_Work\data\ImageNet Renditions\imagenet-r', transform=Compose([Resize((64,64)),
-                                                                                          ToTensor(),
-                                                                                          Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]))
+            dataset = ImageFolder(r'E:\Analysis_Work\data\ImageNet Renditions\imagenet-r', transform=traindata_transforms)
             datasets = train_val_dataset(dataset)
             train_dataset =datasets['train']
             test_dataset = datasets['test']            
@@ -330,27 +289,13 @@ class LoadData:
         
         elif self.dataset == '\imagenet-r-test':
             num_classes = 200
-            traindata_transforms = Compose([
-                        Resize((64, 64)),
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            testdata_transforms = Compose([
-                        Resize((64, 64)),  
-                        ToTensor(),
-                        Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ])
-            dataset = ImageFolder(r'E:\Analysis_Work\data\ImageNet Renditions\imagenet-r', transform=Compose([Resize((64,64)),
-                                                                                          ToTensor(),
-                                                                                          Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])]))
-            
+            dataset = ImageFolder(r'E:\Analysis_Work\data\ImageNet Renditions\imagenet-r', transform=testdata_transforms)
             dl = DataLoader(dataset, self.batch_size, shuffle=True) 
             dataloader = DeviceDataLoader(dl, device)
             return dataloader, num_classes
         
         
         elif self.dataset == '\cifar10c':
-            from torchvision import transforms as T
             num_classes = 10
             class IdxDataset(Dataset):
                 def __init__(self, dataset):
@@ -361,7 +306,6 @@ class LoadData:
     
                 def __getitem__(self, idx):
                     return (idx, *self.dataset[idx])
-    
     
             class ZippedDataset(Dataset):
                 def __init__(self, datasets):
@@ -414,31 +358,10 @@ class LoadData:
             
                     return image, attr, self.data[index]
         
-            transforms = {
-                "\cifar10c": {
-                    "train": T.Compose([T.ToTensor(),]),
-                    "valid": T.Compose([T.ToTensor(),]),
-                    "test": T.Compose([T.ToTensor(),]),
-                    },
-                }
-            
-
             transforms_preprcs = {
                 "\cifar10c": {
-                    "train": T.Compose(
-                        [
-                            T.Resize((32, 32)),
-                            T.ToTensor(),
-                            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-                        ]
-                    ),
-                    "test": T.Compose(
-                        [
-                            T.Resize((32, 32)),
-                            T.ToTensor(),
-                            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ]
-                    ),
+                    "train": traindata_transforms,
+                    "test": testdata_transforms,
                 },
             } 
 
@@ -476,8 +399,8 @@ class LoadData:
                 use_preprocess=True
             )
             train_target_attr = []
-            for data in train_dataset.data:
-                train_target_attr.append(int(data.split('_')[-2]))
+            for d in train_dataset.data:
+                train_target_attr.append(int(d.split('_')[-2]))
             train_target_attr = torch.FloatTensor(train_target_attr)
             attr_dims = []
             attr_dims.append(torch.amax(train_target_attr).item() + 1)
@@ -498,7 +421,6 @@ class LoadData:
             return train_dataloader, test_dataloader, num_classes
         
         elif self.dataset == '\cmnist':
-            from torchvision import transforms as T
             num_classes = 10
             class IdxDataset(Dataset):
                 def __init__(self, dataset):
@@ -561,31 +483,10 @@ class LoadData:
             
                     return image, attr, self.data[index]
                     
-            transforms = {
-                "\cmnist": {
-                    "train": T.Compose([T.ToTensor(),]),
-                    "valid": T.Compose([T.ToTensor(),]),
-                    "test": T.Compose([T.ToTensor(),]),
-                    },
-                }
-            
-
             transforms_preprcs = {
                 "\cmnist": {
-                    "train": T.Compose(
-                        [
-                            T.Resize((64, 64)),
-                            T.ToTensor(),
-                            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-                        ]
-                    ),
-                    "test": T.Compose(
-                        [
-                            T.Resize((64, 64)),
-                            T.ToTensor(),
-                            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                        ]
-                    ),
+                    "train": traindata_transforms,
+                    "test": testdata_transforms,
                 },
             } 
             
@@ -613,7 +514,7 @@ class LoadData:
                 use_preprocess=True
             )
             test_dataset = get_dataset(
-                dataset=  self.dataset,
+                dataset=self.dataset,
                 data_dir=self.data_dir,
                 dataset_split="test",
                 transform_split="test",
@@ -621,8 +522,8 @@ class LoadData:
                 use_preprocess=True
             )
             train_target_attr = []
-            for data in train_dataset.data:
-                train_target_attr.append(int(data.split('_')[-2]))
+            for d in train_dataset.data:
+                train_target_attr.append(int(d.split('_')[-2]))
             train_target_attr = torch.FloatTensor(train_target_attr)
             attr_dims = []
             attr_dims.append(torch.amax(train_target_attr).item() + 1)
@@ -646,24 +547,4 @@ class LoadData:
         
         else:
             print('Invalid_Entry')
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
