@@ -14,7 +14,7 @@ from train import Train
 from dataloader import LoadData
 
 """
-For approporiate denominations and naming conventions, refer lossfunction.py and dataloader.py files.
+For approporiate denominations and naming conventions, refer lossfunctions.py and dataloader.py files.
 """
 def parse_args():
     parser = argparse.ArgumentParser(description="Code Implementation for Representation Analysis for biased and OOD data")
