@@ -1,5 +1,3 @@
-# Representation-Analysis-of-Neural-Networks-on-Biased-and-OOD-data.
-
 <p align="center">
   <img src="https://user-images.githubusercontent.com/67636257/184711258-ff61a650-1382-4c8d-8fd3-10fa8d6e838c.png" height="250" width="550">
 </p>
