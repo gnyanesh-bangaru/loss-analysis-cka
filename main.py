@@ -14,7 +14,7 @@ from train import Train
 from dataloader import LoadData
 
 """
-For approporiate denominations and naming conventions, refer lossfunctions.py and dataloader.py files.
+For approporiate denominations and naming conventions, refer lossfunction.py and dataloader.py files.
 """
 def parse_args():
     parser = argparse.ArgumentParser(description="Code Implementation for Representation Analysis for biased and OOD data")
@@ -22,6 +22,7 @@ def parse_args():
         "-dir",
         '--directory', 
         metavar="DIR", 
+        type=str
         help="Path to dataset"
         )
     parser.add_argument(
@@ -29,6 +30,7 @@ def parse_args():
         "--arch",
         metavar="ARCH",
         default="resnet18",
+        type=str
         help="Model Architecture",
         )
     parser.add_argument(
@@ -43,6 +45,7 @@ def parse_args():
         '-d',
         '--dataset',
         metavar='D',
+        type=str
         default='\cifar10',
         help='Specify the dataset name (according to dataloader)'
         )
@@ -50,6 +53,7 @@ def parse_args():
         '--epochs',
         metavar='E',
         default=30,
+        type=int
         help="epochs for training (default-30)"
         )
     parser.add_argument(
@@ -57,6 +61,7 @@ def parse_args():
         '--optimizer',
         metavar='O',
         default=optim.Adam,
+        type=str
         help="optimizer (default-Adam)"
         )
     parser.add_argument(
