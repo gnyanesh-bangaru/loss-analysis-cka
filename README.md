@@ -9,7 +9,7 @@
     <a href="https://mega.nz/folder/B4FS0RDY#t6F8taiQ1QZ6Uxiodf-R4A" alt="Mega">
         <img src="https://img.shields.io/badge/Weights-Mega-brown.svg" /></a>
 </p>
-<h1 align="center">Representation Analysis of <br>Neural Networks using Biased and OOD Data </h1>
+<h1 align="center">Representational Structure of Neural Networks Trained on Biased and Out-Of-Distribution Data</h1>
 
 -------------------------------------------
 
